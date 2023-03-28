@@ -17,6 +17,7 @@
     "@nrwl/vite": "15.7.2",
     "@nrwl/workspace": "15.7.2",
     "@testing-library/react": "13.4.0",
+    "@types/fscreen": "^1.0.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
@@ -25,6 +26,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "@vitest/coverage-c8": "~0.25.8",
     "@vitest/ui": "^0.25.8",
+    "autoprefixer": "^10.4.14",
     "cypress": "^12.2.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
@@ -35,9 +37,11 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "jsdom": "~20.0.3",
     "nx": "15.7.2",
+    "postcss": "^8.4.21",
     "prettier": "^2.6.2",
     "react-test-renderer": "18.2.0",
     "sass": "^1.55.0",
+    "tailwindcss": "^3.2.7",
     "typescript": "~4.8.2",
     "vite": "^4.0.1",
     "vite-plugin-eslint": "^1.8.1",
@@ -45,7 +49,16 @@
     "vitest": "^0.25.8"
   },
   "dependencies": {
+    "babylonjs": "^5.48.0",
+    "babylonjs-inspector": "^5.48.0",
+    "babylonjs-loaders": "^5.48.0",
+    "babylonjs-materials": "^5.48.0",
+    "fscreen": "^1.2.0",
+    "localforage": "^1.10.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-feather": "^2.0.10",
+    "simple-zustand-devtools": "^1.1.0",
+    "zustand": "^4.3.5"
   }
 }
