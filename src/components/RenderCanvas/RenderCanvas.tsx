@@ -3,6 +3,8 @@ import { createApp3D } from "../../libs/scene3d/app3D";
 import { useFeeneyStore } from "../../libs/store/store";
 import { useSceneInspector } from "../../libs/scene3d/scene-inspector";
 import Preloader from "../Preloader/Preloader";
+import { getAllProducts, getIntermediatePost } from "../../libs/logic/products";
+
 
 export function RenderCanvas() {
     const {
@@ -48,13 +50,14 @@ export function RenderCanvas() {
                 .then((result) => {
                     setProject(result.data)
                 })
+            getIntermediatePost()
             if (!canvas) {
                 console.warn('canvas undefined');
                 return;
             }
             if (project) {
-                const app3D = createApp3D(canvas, project[0].scene3d);
-                setScene(app3D);
+                //const app3D = createApp3D(canvas, project[0].scene3d);
+                //setScene(app3D);
             }
 
         }

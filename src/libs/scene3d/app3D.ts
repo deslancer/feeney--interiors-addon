@@ -14,8 +14,8 @@ export const createApp3D = (canvas: HTMLCanvasElement, url: string) => {
     const engine = useEngine(canvas)
     const scene = useScene(engine);
 
-    useArcRotateCamera(canvas, scene, "orthographic");
-    scene.activeCamera = useFirstPersonCamera(canvas, scene);
+    useArcRotateCamera(canvas, scene, "perspective");
+    scene.activeCamera =  useFirstPersonCamera(canvas, scene);
 
     useHemiLight(scene)
     useSkybox(scene);

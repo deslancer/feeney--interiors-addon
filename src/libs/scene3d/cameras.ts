@@ -44,21 +44,21 @@ export function useArcRotateCamera(canvas :HTMLCanvasElement, scene: Scene, mode
 }
 
 export function useFirstPersonCamera(canvas: HTMLCanvasElement, scene: Scene){
-    const camera = new FreeCamera("FPSCamera", new Vector3(0, 7, 0), scene);
-    camera.rotation.y = Math.PI;
+    const camera = new FreeCamera("FPSCamera", new Vector3(-5, 5, -7), scene);
+    //camera.rotation.y = Math.PI;
     camera.attachControl(canvas, true);
     camera.keysUp = [87, 38];
     camera.keysDown = [83, 40];
     camera.keysLeft = [65, 37];
     camera.keysRight = [68, 39];
-    camera.inertia = 0.7;
-    camera.fov = 1.0;
+    camera.inertia = 0.8;
+    camera.fov = 0.8;
     camera.minZ = 0;
-    camera.angularSensibility = 500;
-    camera.speed = 1.5;
+    camera.angularSensibility = 800;
+    camera.speed = 0.4;
     camera.checkCollisions = true;
     camera.applyGravity = true;
-    camera.ellipsoid = new Vector3(0.5, 2.5, 0.5);
+    camera.ellipsoid = new Vector3(0.5, 1, 0.5);
     (<any>camera)._needMoveForGravity = true;
 
 

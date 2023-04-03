@@ -23,10 +23,10 @@ export async function loadInteriorModel(scene: Scene, url: string) {
     }else {
         throw ( new Error("URL for loading main scene wasn't provided") )
     }*/
-    return await SceneLoader.ImportMeshAsync(
-        undefined,
+
+    return await SceneLoader.AppendAsync(
         './assets/',
-        "feeney_interior.glb",
+        "test_greymat_01.babylon",
         scene, (progress) => {
             const loaded = progress.loaded;
             const total = progress.total;

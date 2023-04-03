@@ -36,11 +36,11 @@ export function Sidebar() {
                                     <p className={"text-base"}>{item.name}</p>
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <div  className={"p-6 flex gap-4"}>
+                                    <div  className={"p-4 flex flex-wrap gap-8"}>
                                         {item.children.map((subItem: any, index: number)=>(
-                                            <div className={"flex flex-col items-center"}>
+                                            <div className={"flex flex-col w-16 cursor-pointer items-center"}>
                                                 <img className={"w-16 rounded-full"} src={subItem.icon ? subItem.icon : "https://placehold.co/100x100?text=No+Image"} alt={subItem.name}/>
-                                                <div className={"mt-2"}>{subItem.name}</div>
+                                                <div className={"mt-2 break-all"}>{subItem.name}</div>
                                             </div>
 
                                         ))}
