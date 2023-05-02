@@ -2,8 +2,8 @@ import { StateCreator } from 'zustand';
 import { StoreSlices } from './store';
 
 export interface RailingParamsSlice {
-    railingType: string;
-    setRailingType: (railingType: string) => void;
+    railingType: string[];
+    setRailingType: (railingType: string[]) => void;
     postMounting: string;
     setPostMounting: (postMounting: string) => void;
     cornerPosts: string;
@@ -38,7 +38,7 @@ export const createRailingParamsSlice: StateCreator<
     [],
     RailingParamsSlice
 > = (set) => ({
-    railingType: "DesignRail",
+    railingType: ["DesignRail"],
     setRailingType: (railingType) =>
         set((state: any) => ({
             ...state,

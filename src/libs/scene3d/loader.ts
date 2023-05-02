@@ -26,7 +26,7 @@ export async function loadInteriorModel(scene: Scene, url: string) {
 
     return await SceneLoader.AppendAsync(
         './assets/',
-        "test_greymat_01.babylon",
+        "greymat_01.babylon",
         scene, (progress) => {
             const loaded = progress.loaded;
             const total = progress.total;

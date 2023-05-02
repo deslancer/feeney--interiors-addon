@@ -8,6 +8,7 @@ export function Sidebar() {
     const toggleTab = (index: number) => {
         setToggleTabState(index);
     };
+
     const UIDL = project && project[0].uidl[0].children as Array<any>;
 
     return (
@@ -22,7 +23,7 @@ export function Sidebar() {
                     >
                         <div className={"m-auto"}>
                             <p className={"my-2"}>Step {index + 1}</p>
-                            <h3 className={"text-xl font-bold"}>{elem.name}</h3>
+                            <h3 className={"text-xl font-bold"}>{elem.text}</h3>
                         </div>
                     </div>
                 ))}
@@ -33,14 +34,14 @@ export function Sidebar() {
                         {elem.children.map((item: any, index: number)=>(
                             <Accordion.Item key={index} expanded={false}>
                                 <Accordion.Header>
-                                    <p className={"text-base"}>{item.name}</p>
+                                    <p className={"text-base"}>{item.text}</p>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <div  className={"p-4 flex flex-wrap gap-8"}>
                                         {item.children.map((subItem: any, index: number)=>(
                                             <div className={"flex flex-col w-16 cursor-pointer items-center"}>
                                                 <img className={"w-16 rounded-full"} src={subItem.icon ? subItem.icon : "https://placehold.co/100x100?text=No+Image"} alt={subItem.name}/>
-                                                <div className={"mt-2 break-all"}>{subItem.name}</div>
+                                                <div className={"mt-2 break-all"}>{subItem.text}</div>
                                             </div>
 
                                         ))}

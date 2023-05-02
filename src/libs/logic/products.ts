@@ -1,49 +1,41 @@
 import { useFeeneyStore } from "../store/store";
+import { ProductEntity } from "../../types/productEntity";
+import * as R from 'ramda'
 
-export const getAllProducts = (): Promise<Array<any>> => {
+export class Products {
+    private URL: string = 'https://feeney3d.com/api'
 
-    return fetch("https://feeney3d.com/api/products", {
-        headers: { 'Content-Type': 'application/json' }
-    }).then((res) => res.json())
+    async getAllProducts(): Promise<Array<ProductEntity>> {
+        return await fetch(`${this.URL}/products`, {
+            headers: { 'Content-Type': 'application/json' }
+        }).then((res) => res.json())
+            .then((result) => {
+                return result
+            })
+    }
 
-}
+    async getIntermediatePost() {
+        const products = await this.getAllProducts();
+        let currentRailingType;
+        let currentPostMounting;
+        let currentHeight;
+        const currentParams = useFeeneyStore.subscribe((state) => state, (state) => {
+                currentRailingType = state.railingType;
+                currentPostMounting = state.postMounting;
+                currentHeight = state.railingHeight;
+            },
+            {
+                fireImmediately: true,
+            })
 
-
-export function getIntermediatePost(height?: number) {
-
-    let railingType = "";
-    let postMounting = "";
-    let currentHeight = "";
-    const getRailingType = useFeeneyStore.subscribe(
-        (state) => [state.railingType, state.postMounting, state.railingHeight],
-        (chunks) => {
-            railingType = chunks[0];
-            postMounting = chunks[1];
-            currentHeight = chunks[2]
-        },
-        {
-            fireImmediately: true,
-        }
-    )
-    getRailingType()
-    const heightValue = height ? height : currentHeight;
-    getAllProducts().then((products)=>{
-        for (let i = 0; i < products.length; i++) {
-            if (
-                products[i].railingType &&
-                products[i].railingType.includes(railingType) &&
-                products[i].productType === 'Intermediate Post' &&
-                products[i].mountType === postMounting &&
-                products[i].heightGroup === heightValue
-            ) {
-                console.log(products[i])
-                return products[i];
-            }
-        }
-        const error = `railing type': ${railingType},
-      'mount type': ${postMounting},
-      'height': ${heightValue}`;
-    })
-
-
+        const intermediatePostEntity = R.filter(R.where({
+            railingType: R.equals(currentRailingType),
+            productType: R.equals('Intermediate Post'),
+            mountType: R.equals(currentPostMounting),
+            heightGroup: R.equals(currentHeight),
+        }))
+        currentParams()
+        console.log(intermediatePostEntity(products))
+        return intermediatePostEntity(products)
+    }
 }

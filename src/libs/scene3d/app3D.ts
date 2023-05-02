@@ -19,10 +19,10 @@ export const createApp3D = (canvas: HTMLCanvasElement, url: string) => {
 
     useHemiLight(scene)
     useSkybox(scene);
-    loadInteriorModel(scene, url).then(()=> {
+    /*loadInteriorModel(scene, url).then(()=> {
         setupMaterials(scene);
         setupColliders(scene)
-    })
+    })*/
     engine.runRenderLoop(() => {
         scene.render();
     });

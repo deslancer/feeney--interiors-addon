@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, Maximize, Minimize, Video } from "react-feather";
 import { MutableRefObject } from "react";
 import { useFullscreen } from "../../hooks/useFullscreen";
+import { respawnCamera } from "../../libs/scene3d/cameras";
 
 interface BottomBarInterface {
     appElement: MutableRefObject<HTMLDivElement>
@@ -18,7 +19,7 @@ export function BottomBar({ appElement }: BottomBarInterface) {
                     className={"border-feeney_primary group border-2 cursor-pointer text-feeney_primary flex border w-12 h-full rounded-full"}>
                     <ChevronLeft className={"m-auto transition-all duration-500 group-hover:-translate-x-1"}/>
                 </div>
-                <div className={"w-12 h-full mx-4 flex text-white cursor-pointer rounded bg-feeney_primary"}>
+                <div onClick={respawnCamera} className={"w-12 h-full mx-4 flex text-white cursor-pointer rounded bg-feeney_primary"}>
                     <Video className={"m-auto"}/>
                 </div>
                 <div

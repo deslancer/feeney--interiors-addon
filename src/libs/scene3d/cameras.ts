@@ -1,4 +1,5 @@
 import {Scene, ArcRotateCamera,FreeCamera, Vector3} from 'babylonjs';
+import { useFeeneyStore } from "../store/store";
 export function useArcRotateCamera(canvas :HTMLCanvasElement, scene: Scene, mode: string = "perspective") {
     const camera = new ArcRotateCamera(
         'arcRotateCamera',
@@ -60,7 +61,20 @@ export function useFirstPersonCamera(canvas: HTMLCanvasElement, scene: Scene){
     camera.applyGravity = true;
     camera.ellipsoid = new Vector3(0.5, 1, 0.5);
     (<any>camera)._needMoveForGravity = true;
-
-
+    camera.storeState()
+    if (camera.position.y < 5){
+        respawnCamera()
+    }
     return camera
+}
+
+export function respawnCamera(){
+    const scene = useFeeneyStore.getState().scene;
+    if (scene){
+        const camera = scene.activeCamera;
+        if (camera) {
+            //camera.position = new Vector3(-5, 5, -7);
+            camera.restoreState()
+        }
+    }
 }
