@@ -1,6 +1,7 @@
 import { StateCreator } from 'zustand';
 import { StoreSlices } from './store';
 import type {Scene} from "babylonjs";
+import { Project } from "../../types/Project";
 
 
 export interface AppSlice {
@@ -8,8 +9,8 @@ export interface AppSlice {
     setIsInDevMode: (isInDevMode: boolean) => void;
     scene: Scene | null;
     setScene: (scene: Scene) => void;
-    project: any[] | null;
-    setProject: (project: any)=> void;
+    project: Array<Project> | null;
+    setProject: (project: Array<Project>)=> void;
     isLoading: boolean;
     setIsLoading: (isLoading: boolean) => void;
     progress: number;

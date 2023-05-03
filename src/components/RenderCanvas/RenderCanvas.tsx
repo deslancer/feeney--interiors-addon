@@ -4,6 +4,7 @@ import { useFeeneyStore } from "../../libs/store/store";
 import { useSceneInspector } from "../../libs/scene3d/scene-inspector";
 import Preloader from "../Preloader/Preloader";
 import { Products } from "../../libs/logic/products";
+import { RailingBuilder } from "../../libs/logic/railingBuilder";
 
 
 export function RenderCanvas() {
@@ -59,7 +60,7 @@ export function RenderCanvas() {
                 console.log(project)
                 const app3D = createApp3D(canvas, project[0].scene3d);
                 setScene(app3D);
-                new Products().getIntermediatePost()
+                new RailingBuilder().buildRailing()
             }
 
         }

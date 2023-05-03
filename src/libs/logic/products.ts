@@ -1,5 +1,5 @@
 import { useFeeneyStore } from "../store/store";
-import { ProductEntity } from "../../types/productEntity";
+import { ProductEntity } from "../../types/ProductEntity";
 import * as R from 'ramda'
 
 export class Products {
@@ -35,7 +35,7 @@ export class Products {
             heightGroup: R.equals(currentHeight),
         }))
         currentParams()
-        console.log(intermediatePostEntity(products))
-        return intermediatePostEntity(products)
+        //console.log(intermediatePostEntity(products))
+        return intermediatePostEntity(products)[0]
     }
 }
