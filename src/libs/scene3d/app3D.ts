@@ -8,14 +8,25 @@ import { loadInteriorModel } from "./loader";
 import { setupMaterials } from "./setupMaterials";
 import { setupColliders } from "./setupColliders";
 
-export const createApp3D = (canvas: HTMLCanvasElement, url: string) => {
+/**
+ * The createApp3D function creates a 3D scene, camera and light.
+ * It also adds the BabylonJS inspector to the window object so you can inspect your scene in the browser console.
+ *
+ * @param canvas: HTMLCanvasElement Pass in the canvas element from the dom
+ * @param url: string Pass in the url of the model to be loaded
+ *
+ * @return A scene
+
+ */
+export const createApp3D = async (canvas: HTMLCanvasElement, url: string) => {
     const setIsLoading = useFeeneyStore.getState().setIsLoading;
 
     const engine = useEngine(canvas)
     const scene = useScene(engine);
 
     useArcRotateCamera(canvas, scene, "perspective");
-    scene.activeCamera =  useFirstPersonCamera(canvas, scene);
+    //scene.activeCamera =  useFirstPersonCamera(canvas, scene);
+    scene.activeCamera = useArcRotateCamera(canvas, scene, "perspective");
 
     useHemiLight(scene)
     useSkybox(scene);

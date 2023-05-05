@@ -1,20 +1,22 @@
-import { SceneLoader, Node } from "babylonjs";
+import { SceneLoader, Node, AssetsManager } from "babylonjs";
 import { useFeeneyStore } from "../store/store";
 import 'babylonjs-loaders';
 import { ProductEntity } from "../../types/ProductEntity";
 import * as R from 'ramda'
 import { ProjectAssets } from "../../types/ProjectAssets";
+import { AssetType } from "../../types/Asset";
 
-type AssetType = {
-    name: string
-    size: number
-    status: string
-    type: string
-    url: string
-}
+/**
+ * The loadModel function is responsible for loading a model into the scene.
+ * It takes in an entity, which contains information about the model to be loaded.
+ * The function then uses that information to find and load the correct asset from our project's assetsUrls array.
+
+ * @param entity: ProductEntity Get the modelobj property
+ * @return A promise
+ * @deprecated since version 0.2.0-alpha, please use AssetsLoader instead
+ */
 export async function loadModel(entity: ProductEntity){
     const { scene, project } = useFeeneyStore.getState();
-
     if (entity && scene && project){
         const modelName = entity.modelObj.split('.')[0]
         const filterAssets = R.compose(

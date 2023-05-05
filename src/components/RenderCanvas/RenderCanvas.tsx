@@ -3,8 +3,7 @@ import { createApp3D } from "../../libs/scene3d/app3D";
 import { useFeeneyStore } from "../../libs/store/store";
 import { useSceneInspector } from "../../libs/scene3d/scene-inspector";
 import Preloader from "../Preloader/Preloader";
-import { Products } from "../../libs/logic/products";
-import { RailingBuilder } from "../../libs/logic/railingBuilder";
+import { AssetsLoader } from "../../libs/logic/assetsLoader";
 
 
 export function RenderCanvas() {
@@ -13,20 +12,23 @@ export function RenderCanvas() {
         isInDevMode, setIsInDevMode,
         project, setProject,
         isLoading, setIsLoading,
-        progress
+        progress,
+        setAssetsLoader
     } = useFeeneyStore(
         ({
              scene, setScene,
              isInDevMode, setIsInDevMode,
              project, setProject,
              isLoading, setIsLoading,
-             progress
+             progress,
+            setAssetsLoader
          }) => ({
             scene, setScene,
             isInDevMode, setIsInDevMode,
             project, setProject,
             isLoading, setIsLoading,
-            progress
+            progress,
+            setAssetsLoader
         }))
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const shouldSetup = useRef(true);
@@ -57,10 +59,10 @@ export function RenderCanvas() {
                 return;
             }
             if (Array.isArray(project)) {
-                console.log(project)
-                const app3D = createApp3D(canvas, project[0].scene3d);
-                setScene(app3D);
-                new RailingBuilder().buildRailing()
+                createApp3D(canvas, project[0].scene3d).then((scene)=>{
+                    setScene(scene);
+                    setAssetsLoader(AssetsLoader.instance)
+                }).catch(console.log);
             }
 
         }

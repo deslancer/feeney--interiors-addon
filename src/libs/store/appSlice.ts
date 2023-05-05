@@ -1,27 +1,30 @@
 import { StateCreator } from 'zustand';
 import { StoreSlices } from './store';
-import type {Scene} from "babylonjs";
+import type { Scene } from "babylonjs";
 import { Project } from "../../types/Project";
+import { AssetsLoader } from "../logic/assetsLoader";
 
 
 export interface AppSlice {
     isInDevMode: boolean;
     setIsInDevMode: (isInDevMode: boolean) => void;
-    scene: Scene | null;
+    scene: Scene | undefined;
     setScene: (scene: Scene) => void;
     project: Array<Project> | null;
-    setProject: (project: Array<Project>)=> void;
+    setProject: (project: Array<Project>) => void;
     isLoading: boolean;
     setIsLoading: (isLoading: boolean) => void;
     progress: number;
     setProgress: (progress: number) => void;
     cameraMode: string;
     setCameraMode: (cameraMode: string) => void;
+    assetsLoader: AssetsLoader | undefined;
+    setAssetsLoader: (assetsLoader: AssetsLoader) => void
 }
 
 export const createAppSlice: StateCreator<
     StoreSlices,
-    [['zustand/persist', unknown]],
+    [ [ 'zustand/persist', unknown ] ],
     [],
     AppSlice
 > = (set) => ({
@@ -31,7 +34,7 @@ export const createAppSlice: StateCreator<
             ...state,
             isInDevMode,
         })),
-    scene: null,
+    scene: undefined,
     setScene: (scene) =>
         set((state: any) => ({
             ...state,
@@ -60,5 +63,11 @@ export const createAppSlice: StateCreator<
         set((state: any) => ({
             ...state,
             cameraMode,
+        })),
+    assetsLoader: undefined,
+    setAssetsLoader: (assetsLoader) =>
+        set((state: any) => ({
+            ...state,
+            assetsLoader,
         })),
 });
