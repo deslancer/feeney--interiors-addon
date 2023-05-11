@@ -46,7 +46,7 @@ export function Sidebar() {
                                 <Accordion.Body>
                                     <div className={"p-4 flex flex-wrap gap-8"}>
                                         {item.children.map((subItem: any, index: number) => (
-                                            <div className={"flex flex-col w-16 cursor-pointer items-center"}>
+                                            <div key={index} className={"flex flex-col w-16 cursor-pointer items-center"}>
                                                 <img className={"w-16 rounded-full"}
                                                      src={subItem.icon ? subItem.icon : "https://placehold.co/100x100?text=No+Image"}
                                                      alt={subItem.name}/>

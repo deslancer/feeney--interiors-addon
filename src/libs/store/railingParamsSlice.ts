@@ -1,5 +1,6 @@
 import { StateCreator } from 'zustand';
 import { StoreSlices } from './store';
+import { Vector3 } from "babylonjs";
 
 export interface RailingParamsSlice {
     railingType: string[];
@@ -30,6 +31,8 @@ export interface RailingParamsSlice {
         postAccentLights: boolean
     }
     setLighting: (lighting: { topRailLights: boolean, bottomRailLights: boolean, postAccentLights: boolean }) => void;
+    placementPoints: Vector3[];
+    setPlacementPoints: (placementPoints: Vector3[])=> void;
 }
 
 export const createRailingParamsSlice: StateCreator<
@@ -113,5 +116,11 @@ export const createRailingParamsSlice: StateCreator<
         set((state: any) => ({
             ...state,
             lighting,
+        })),
+    placementPoints: [],
+    setPlacementPoints: (placementPoints) =>
+        set((state: any) => ({
+            ...state,
+            placementPoints,
         })),
 });

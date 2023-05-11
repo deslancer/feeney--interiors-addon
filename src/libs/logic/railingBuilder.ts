@@ -3,6 +3,7 @@ import { Products } from "./products";
 import { AssetsLoader } from "./assetsLoader";
 import { MeshAssetTask } from "babylonjs";
 import { PostsBuilder } from "./postsBuilder";
+import { PositionsCalc } from "./positionsCalc";
 
 export class RailingBuilder {
     private static _instance: RailingBuilder;
@@ -21,7 +22,8 @@ export class RailingBuilder {
 
     private productsStorage: Products = new Products();
     private assetsLoader: AssetsLoader = AssetsLoader.instance;
-    private postsBuilder: PostsBuilder = new PostsBuilder();
+    private positionsCalc: PositionsCalc = PositionsCalc.instance
+    private postsBuilder: PostsBuilder = PostsBuilder.instance;
     private railingTasks: Record<string, MeshAssetTask | undefined> = {
         intermediatePost: undefined,
         intermediatePostForStairs: undefined,
@@ -50,11 +52,21 @@ export class RailingBuilder {
 
     async buildRailing() {
         if (!this.isBuilt) {
-            const intermediatePostEntity = await this.productsStorage.getIntermediatePost()
+            const intermediatePostEntity = await this.productsStorage.getIntermediatePost();
+            const cornerPostEntity = await this.productsStorage.getCornerPost();
+            const baseRailEntity = await this.productsStorage.getBaseRail();
+
             this.railingTasks.intermediatePost = await this.addRailingComponentTask(intermediatePostEntity, 'intermediatePost');
-            this.postsBuilder.build(this.railingTasks.intermediatePost)
+            this.railingTasks.cornerPost = await this.addRailingComponentTask(cornerPostEntity, 'cornerPost');
+            this.railingTasks.baseRail = await  this.addRailingComponentTask(baseRailEntity, 'baseRail')
+            console.log(await this.addRailingComponentTask(baseRailEntity, 'baseRail'))
+            this.positionsCalc.calcForPosts(intermediatePostEntity);
+
+            const postsPositions = this.positionsCalc.getPostsPositions;
+            this.postsBuilder.build(this.railingTasks.intermediatePost,this.railingTasks.cornerPost, postsPositions)
             await this.assetsLoader.loadAllTasks()
             this.isBuilt = true;
+
         }
     }
 

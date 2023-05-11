@@ -38,4 +38,48 @@ export class Products {
         //console.log(intermediatePostEntity(products))
         return intermediatePostEntity(products)[0]
     }
+    async getCornerPost(){
+        const products = await this.getAllProducts();
+        let currentRailingType;
+        let currentPostMounting;
+        let currentHeight;
+        let cornerPosts;
+        const currentParams = useFeeneyStore.subscribe((state) => state, (state) => {
+                currentRailingType = state.railingType;
+                currentPostMounting = state.postMounting;
+                currentHeight = state.railingHeight;
+                cornerPosts = state.cornerPosts;
+            },
+            {
+                fireImmediately: true,
+            })
+
+        const cornerPostEntity = R.filter(R.where({
+            railingType: R.equals(currentRailingType),
+            productType: R.equals('Corner Post'),
+            mountType: R.equals(currentPostMounting),
+            heightGroup: R.equals(currentHeight),
+            cornerType: R.equals(cornerPosts),
+            angleType: R.equals('Outside'),
+        }))
+        currentParams();
+
+        return cornerPostEntity(products)[0];
+    }
+    async getBaseRail(){
+        const products = await this.getAllProducts();
+        let currentRailingType;
+        const currentParams = useFeeneyStore.subscribe((state) => state, (state) => {
+                currentRailingType = state.railingType;
+            },
+            {
+                fireImmediately: true,
+            })
+        const baseRailEntity = R.filter(R.where({
+            railingType: R.equals(currentRailingType),
+            productType: R.equals('BaseRail'),
+        }))
+        currentParams();
+        return baseRailEntity(products)[0];
+    }
 }

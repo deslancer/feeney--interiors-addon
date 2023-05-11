@@ -10,8 +10,9 @@ export function useArcRotateCamera(canvas :HTMLCanvasElement, scene: Scene, mode
         scene,
     );
     if (mode === "perspective"){
-
-        camera.lowerRadiusLimit = 10;
+        camera.zoomToMouseLocation = true;
+        camera.wheelDeltaPercentage = 0.01;
+        camera.lowerRadiusLimit = 1;
         camera.upperRadiusLimit = 500;
         camera.attachControl(canvas, false);
 

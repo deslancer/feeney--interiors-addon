@@ -7,6 +7,7 @@ import { useFeeneyStore } from "../store/store";
 import { loadInteriorModel } from "./loader";
 import { setupMaterials } from "./setupMaterials";
 import { setupColliders } from "./setupColliders";
+import { Vector3 } from "babylonjs";
 
 /**
  * The createApp3D function creates a 3D scene, camera and light.
@@ -19,7 +20,7 @@ import { setupColliders } from "./setupColliders";
 
  */
 export const createApp3D = async (canvas: HTMLCanvasElement, url: string) => {
-    const setIsLoading = useFeeneyStore.getState().setIsLoading;
+    const { setIsLoading, setPlacementPoints } = useFeeneyStore.getState();
 
     const engine = useEngine(canvas)
     const scene = useScene(engine);
@@ -30,10 +31,15 @@ export const createApp3D = async (canvas: HTMLCanvasElement, url: string) => {
 
     useHemiLight(scene)
     useSkybox(scene);
-    /*loadInteriorModel(scene, url).then(()=> {
+    loadInteriorModel(scene, url).then((scene)=> {
+        const placementPoints: Vector3[] = [];
+        scene.meshes.filter(mesh => mesh.name.includes('ForPost')).map(mesh => {
+            placementPoints.push(mesh.position)
+        })
+        setPlacementPoints(placementPoints)
         setupMaterials(scene);
         setupColliders(scene)
-    })*/
+    })
     engine.runRenderLoop(() => {
         scene.render();
     });

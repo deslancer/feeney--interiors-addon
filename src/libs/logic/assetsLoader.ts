@@ -37,6 +37,7 @@ export class AssetsLoader {
             )
             const assets: Array<ProjectAssets> = this.project[0].assets;
             const assetsUrls: Array<AssetType> = JSON.parse(filterAssets(assets)[0] as string);
+
             const asset: AssetType | undefined = assetsUrls.find(asset => asset.url.includes(modelName))
 
             if (asset) {

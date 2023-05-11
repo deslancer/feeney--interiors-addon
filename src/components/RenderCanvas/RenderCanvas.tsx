@@ -61,7 +61,8 @@ export function RenderCanvas() {
             if (Array.isArray(project)) {
                 createApp3D(canvas, project[0].scene3d).then((scene)=>{
                     setScene(scene);
-                    setAssetsLoader(AssetsLoader.instance)
+                    setAssetsLoader(AssetsLoader.instance);
+
                 }).catch(console.log);
             }
 
