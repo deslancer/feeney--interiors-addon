@@ -17,7 +17,9 @@ export class PositionsCalc {
         }
         return this._instance;
     }
-    private _postsPositions: Record<string, Vector3> = {}
+    private halfPostHeight: number = 0;
+    private _postsPositions: Record<string, Vector3> = {};
+    private _baseRailPosition: Record<string, Vector3 | number> = {}
     private _dimensions: Record<string, number> = {}
     constructor() {
     }
@@ -29,16 +31,21 @@ export class PositionsCalc {
     }
     calcForPosts(entity: ProductEntity){
         /** Because pivot point in mesh center*/
-        const halfHeight = (entity.height / 100) / 2;
+        this.halfPostHeight = (entity.height / 100) / 2;
         const lowestY = this.placementPoints.reduce((i, a) => Math.min(a.y, i), Infinity);
         const lowestVec3 = this.placementPoints.find(vec => vec.y === lowestY) ?? Vector3.Zero();
 
         //TODO think how to make it universal
-        this._postsPositions['firstPost'] = new Vector3(lowestVec3.x, lowestVec3.y + halfHeight, lowestVec3.z);
-        this._postsPositions['cornerPost'] = new Vector3(this.placementPoints[1].x,this.placementPoints[1].y + halfHeight, this.placementPoints[1].z)
-        this._postsPositions['lastPost'] = new Vector3(this.placementPoints[2].x,this.placementPoints[2].y + halfHeight, this.placementPoints[2].z)
+        this._postsPositions['firstPost'] = new Vector3(lowestVec3.x, lowestVec3.y + this.halfPostHeight, lowestVec3.z);
+        this._postsPositions['cornerPost'] = new Vector3(this.placementPoints[1].x,this.placementPoints[1].y + this.halfPostHeight, this.placementPoints[1].z)
+        this._postsPositions['lastPost'] = new Vector3(this.placementPoints[2].x,this.placementPoints[2].y + this.halfPostHeight, this.placementPoints[2].z)
 
         this._dimensions['stairLength'] = Vector3.Distance(this._postsPositions['firstPost'], this._postsPositions['cornerPost']);
         console.log(this._dimensions['stairLength'])
+    }
+    calcForBaseRail(){
+        const centerBetweenPosts = Vector3.Lerp(this._postsPositions['firstPost'],this._postsPositions['cornerPost'], 0.5);
+        this._baseRailPosition['position'] = new Vector3(centerBetweenPosts.x, centerBetweenPosts.y, centerBetweenPosts.z)
+        console.log(centerBetweenPosts)
     }
 }

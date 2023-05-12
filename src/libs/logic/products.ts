@@ -82,4 +82,49 @@ export class Products {
         currentParams();
         return baseRailEntity(products)[0];
     }
+    async getHandRail(height?: string, selectedType?: string){
+        const products = await this.getAllProducts();
+        let heightValue: string = '';
+        let type: string = '';
+        let currentRailingType;
+        let handRailEntity;
+        const currentParams = useFeeneyStore.subscribe((state) => state, (state) => {
+                heightValue = height ? height : state.railingHeight;
+                type =  selectedType ? selectedType : state.topRail;
+                currentRailingType = state.railingType;
+            },
+            {
+                fireImmediately: true,
+            })
+        currentParams();
+        switch (type) {
+            case 'CompositeTop':{
+                handRailEntity = R.filter(R.where({
+                    placementRule: R.equals('Continuous'),
+                    handrailType: R.equals('Composite'),
+                    heightGroup: R.equals(heightValue),
+                }))
+            }
+                break;
+            case 'CompositeBetween':{
+                handRailEntity = R.filter(R.where({
+                    placementRule: R.equals('Between Posts'),
+                    handrailType: R.equals('Composite'),
+                    heightGroup: R.equals(heightValue),
+                }))
+            }
+                break;
+            default: {
+                handRailEntity = R.filter(R.where({
+                    railingType: R.equals(currentRailingType),
+                    productType: R.equals('Handrail'),
+                    handrailType: R.equals(type),
+                    heightGroup: R.equals(heightValue),
+                }))
+            }
+
+        }
+        console.log(handRailEntity(products)[0])
+
+    }
 }

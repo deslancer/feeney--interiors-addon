@@ -63,6 +63,7 @@ export class RailingBuilder {
             this.positionsCalc.calcForPosts(intermediatePostEntity);
 
             const postsPositions = this.positionsCalc.getPostsPositions;
+            this.positionsCalc.calcForBaseRail()
             this.postsBuilder.build(this.railingTasks.intermediatePost,this.railingTasks.cornerPost, postsPositions)
             await this.assetsLoader.loadAllTasks()
             this.isBuilt = true;
