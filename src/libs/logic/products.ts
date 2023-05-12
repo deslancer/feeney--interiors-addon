@@ -14,7 +14,7 @@ export class Products {
             })
     }
 
-    async getIntermediatePost() {
+    async getIntermediatePost(): Promise<ProductEntity> {
         const products = await this.getAllProducts();
         let currentRailingType;
         let currentPostMounting;
@@ -38,7 +38,8 @@ export class Products {
         //console.log(intermediatePostEntity(products))
         return intermediatePostEntity(products)[0]
     }
-    async getCornerPost(){
+
+    async getCornerPost(): Promise<ProductEntity> {
         const products = await this.getAllProducts();
         let currentRailingType;
         let currentPostMounting;
@@ -66,7 +67,8 @@ export class Products {
 
         return cornerPostEntity(products)[0];
     }
-    async getBaseRail(){
+
+    async getBaseRail(): Promise<ProductEntity> {
         const products = await this.getAllProducts();
         let currentRailingType;
         const currentParams = useFeeneyStore.subscribe((state) => state, (state) => {
@@ -82,7 +84,8 @@ export class Products {
         currentParams();
         return baseRailEntity(products)[0];
     }
-    async getHandRail(height?: string, selectedType?: string){
+
+    async getHandRail(height?: string, selectedType?: string): Promise<ProductEntity> {
         const products = await this.getAllProducts();
         let heightValue: string = '';
         let type: string = '';
@@ -90,15 +93,15 @@ export class Products {
         let handRailEntity;
         const currentParams = useFeeneyStore.subscribe((state) => state, (state) => {
                 heightValue = height ? height : state.railingHeight;
-                type =  selectedType ? selectedType : state.topRail;
+                type = selectedType ? selectedType : state.topRail;
                 currentRailingType = state.railingType;
             },
             {
                 fireImmediately: true,
             })
         currentParams();
-        switch (type) {
-            case 'CompositeTop':{
+        switch ( type ) {
+            case 'CompositeTop': {
                 handRailEntity = R.filter(R.where({
                     placementRule: R.equals('Continuous'),
                     handrailType: R.equals('Composite'),
@@ -106,7 +109,7 @@ export class Products {
                 }))
             }
                 break;
-            case 'CompositeBetween':{
+            case 'CompositeBetween': {
                 handRailEntity = R.filter(R.where({
                     placementRule: R.equals('Between Posts'),
                     handrailType: R.equals('Composite'),
@@ -125,6 +128,6 @@ export class Products {
 
         }
         console.log(handRailEntity(products)[0])
-
+        return handRailEntity(products)[0]
     }
 }

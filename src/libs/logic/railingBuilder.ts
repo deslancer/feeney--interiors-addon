@@ -4,6 +4,7 @@ import { AssetsLoader } from "./assetsLoader";
 import { MeshAssetTask } from "babylonjs";
 import { PostsBuilder } from "./postsBuilder";
 import { PositionsCalc } from "./positionsCalc";
+import { RailingComponents } from "../../types/RailingComponents";
 
 export class RailingBuilder {
     private static _instance: RailingBuilder;
@@ -24,27 +25,8 @@ export class RailingBuilder {
     private assetsLoader: AssetsLoader = AssetsLoader.instance;
     private positionsCalc: PositionsCalc = PositionsCalc.instance
     private postsBuilder: PostsBuilder = PostsBuilder.instance;
-    private railingTasks: Record<string, MeshAssetTask | undefined> = {
-        intermediatePost: undefined,
-        intermediatePostForStairs: undefined,
-        intermediateAngledPost: undefined,
-        cornerPost: undefined,
-        cornerPostForStairs: undefined,
-        vertCable: undefined,
-        vertCableForStairs: undefined,
-        glass: undefined,
-        laserCut: undefined,
-        baseRail: undefined,
-        verticalPicket: undefined,
-        horizontalCableVerticalPicket: undefined,
-        verticalPicketForStairs: undefined,
-        horizontalCable: undefined,
-        horizontalCableForStairs: undefined,
-        postCapForCornerPost: undefined,
-        postCapForIntermediatePost: undefined,
-        stairGlass: undefined,
-        singleHorizontalCable: undefined,
-    }
+    private railingEntities: Record<string, ProductEntity > = {};
+    private railingTasks: Record<string, MeshAssetTask | undefined> = {};
     private isBuilt: boolean = false;
 
     constructor() {
@@ -52,14 +34,15 @@ export class RailingBuilder {
 
     async buildRailing() {
         if (!this.isBuilt) {
+
             const intermediatePostEntity = await this.productsStorage.getIntermediatePost();
             const cornerPostEntity = await this.productsStorage.getCornerPost();
             const baseRailEntity = await this.productsStorage.getBaseRail();
+            const handRailEntity = await this.productsStorage.getHandRail();
 
-            this.railingTasks.intermediatePost = await this.addRailingComponentTask(intermediatePostEntity, 'intermediatePost');
-            this.railingTasks.cornerPost = await this.addRailingComponentTask(cornerPostEntity, 'cornerPost');
-            this.railingTasks.baseRail = await  this.addRailingComponentTask(baseRailEntity, 'baseRail')
-            console.log(await this.addRailingComponentTask(baseRailEntity, 'baseRail'))
+
+
+
             this.positionsCalc.calcForPosts(intermediatePostEntity);
 
             const postsPositions = this.positionsCalc.getPostsPositions;
@@ -71,7 +54,19 @@ export class RailingBuilder {
         }
     }
 
-    private async addRailingComponentTask(modelEntity: ProductEntity, componentType: string): Promise<MeshAssetTask | undefined> {
-        return this.assetsLoader.addModelToLoader(modelEntity);
+    private async addRailingComponentTask(modelEntity: ProductEntity, componentType: string) {
+        this.railingTasks[componentType] =  this.assetsLoader.addModelToLoader(modelEntity);
+    }
+    private async addAllRailingTasks() {
+        await this.addRailingComponentTask(this.railingEntities[RailingComponents.intermediatePost], 'intermediatePost');
+        await this.addRailingComponentTask(this.railingEntities[RailingComponents.cornerPost], 'cornerPost');
+        await this.addRailingComponentTask(this.railingEntities[RailingComponents.baseRail], 'baseRail')
+        await this.addRailingComponentTask(this.railingEntities[RailingComponents.handRail], 'handRail')
+    }
+    private async addAllRailingEntities(){
+        this.railingEntities[RailingComponents.intermediatePost] = await this.productsStorage.getIntermediatePost();
+        this.railingEntities[RailingComponents.cornerPost] = await this.productsStorage.getCornerPost();
+        this.railingEntities[RailingComponents.baseRail] = await this.productsStorage.getBaseRail();
+        this.railingEntities[RailingComponents.handRail] = await this.productsStorage.getHandRail();
     }
 }
