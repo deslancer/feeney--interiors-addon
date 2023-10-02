@@ -18,12 +18,13 @@ export function AccordionHeader(props: AccordionHeaderProps) {
       className="flex group select-none border-b border-feeney_highlight justify-between p-3 transition-all duration-500 hover:text-feeney_primary cursor-pointer rounded-sm relative capitalize"
     >
       {children}
-      <p className={"bg-feeney_primary ml-4 p-1"}>
+      <p className={'bg-feeney_primary ml-4 p-1'}>
         <ChevronDown
-            className={`transition-transform group-hover:text-white ${expanded ? 'rotate-180' : ''}`}
+          className={`transition-transform group-hover:text-white ${
+            expanded ? 'rotate-180' : ''
+          }`}
         />
       </p>
-
     </div>
   );
 }

@@ -1,74 +1,79 @@
 export type ProductEntity = {
+  handrailType: string;
 
-    application: string
+  application: string;
 
-    color: string
+  color: string;
 
-    colors: Array<string>
+  colors: Array<string>;
 
-    cornerType: string
+  cornerType: string;
 
-    description: string
+  description: string;
 
-    height: number
+  height: number;
 
-    heightGroup: string
+  heightGroup: string;
 
-    id: string
+  id: string;
 
-    itemLevel: string
+  itemLevel: string;
 
-    length: number
+  length: number;
 
-    lightingOption: string
+  lightingOption: string;
 
-    maxSpacing: Object
+  maxSpacing: Object;
 
-    model135Mtl: string
+  model135Mtl: string;
 
-    model135Obj: string
+  model135Obj: string;
 
-    model45Mtl: string
+  model45Mtl: string;
 
-    model45Obj: string
+  model45Obj: string;
 
-    modelLightingMtl: string
+  modelLightingMtl: string;
 
-    modelLightingObj: string
+  modelLightingObj: string;
 
-    modelLightningMtl: string
+  modelLightningMtl: string;
 
-    modelLightningObj: string
+  modelLightningObj: string;
 
-    modelMtl: string
+  modelMtl: string;
 
-    modelObj: string
+  modelObj: string;
 
-    mountType: string
+  mountType: string;
 
-    offset: string
+  offset: string;
 
-    placementHeight: number
+  placementHeight: number;
 
-    placementRule: string
+  placementRule: string;
 
-    postCap: string
+  postCap: string;
 
-    postType: string
+  postType: string;
 
-    postWidth: number
+  postWidth: number;
 
-    price: number
+  price: number;
 
-    productGroup: string
+  productGroup: string;
 
-    productSku: string
+  productSku: string;
 
-    productType: string
+  productType: string;
 
-    railingType: Array<string>
+  railingType: Array<string>;
 
-    weight: number
+  weight: number;
 
-    width: number
-}
+  width: number;
+
+  verticalPicketShapeType?: string;
+
+  verticalPicketForInfillWithBaserail?: string;
+};

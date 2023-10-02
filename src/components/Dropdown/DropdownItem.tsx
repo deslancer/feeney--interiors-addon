@@ -26,12 +26,12 @@ function DropdownItem(props: DropdownItemProps) {
 
   return (
     <div
-      className={`hover:bg-feeney_secondary_dark flex justify-between items-center px-4 py-2 text-sm cursor-pointer ${variantStyles}`}
+      className={`hover:bg-feeney_secondary_dark flex w-full justify-between items-center px-4 py-2 text-sm cursor-pointer ${variantStyles}`}
       role="menuitem"
       tabIndex={-1}
       onClick={action}
     >
-      <div>{children}</div>
+      {children}
       {hotkey && <div className="opacity-60 text-xs ml-3">{hotkey}</div>}
     </div>
   );

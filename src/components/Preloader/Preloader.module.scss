@@ -4,10 +4,13 @@
   &_container {
     width: 100%;
     height: 100%;
-    position: relative;
+    position: absolute;
     display: flex;
-    z-index: 10;
-    background: #353535;
+    z-index: 1000;
+    top:0;
+    left: 0;
+    background: rgba(45,45,45, 0.85);
+    backdrop-filter: blur(5px);
   }
 
   &_block {
@@ -20,15 +23,16 @@
   }
   &_line__container {
     width: 100%;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
     border-radius: 9999px;
     height: 0.5rem;
-    background: #222222;
+    background: #D9D9D9;
   }
   &_line {
     height: 0.5rem;
     border-radius: 9999px;
     transition: all 400ms ease-in-out;
-    background: blue;
+    background: #00A6CE;
   }
 }

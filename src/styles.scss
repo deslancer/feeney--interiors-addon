@@ -3,3 +3,24 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+@layer components {
+  .form-custom-input {
+    @apply w-full h-10 px-0.5 border-0 border-b border-feeney_primary focus:ring-0 focus:outline-0;
+  }
+
+  .form-custom-btn {
+    @apply w-full bg-gray-200 h-10 mb-3 text-center p-2 cursor-pointer text-gray-400 rounded
+  }
+
+  .form-custom-btn-active {
+    @apply w-full
+    bg-feeney_primary_light
+    h-10 mb-3 text-center
+    p-1 cursor-pointer
+    text-feeney_primary_dark
+    font-bold border-2
+    border-feeney_primary_dark
+    rounded
+  }
+}

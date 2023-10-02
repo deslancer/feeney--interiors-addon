@@ -1,40 +1,37 @@
-import { Scene, SceneLoader } from "babylonjs";
+import {Scene, SceneLoader, TransformNode, Vector3} from 'babylonjs';
 import 'babylonjs-loaders';
-import { useFeeneyStore } from "../store/store";
+import {useFeeneyStore} from '../store/store';
 
 export async function loadInteriorModel(scene: Scene, url: string) {
-    const setProgress  = useFeeneyStore.getState().setProgress;
+    const setProgress = useFeeneyStore.getState().setProgress;
 
-   /* if (url){
+    if (url) {
         return await SceneLoader.ImportMeshAsync(
             undefined,
             url,
             undefined,
-            scene, (progress) => {
+            scene,
+            (progress) => {
                 const loaded = progress.loaded;
                 const total = progress.total;
 
                 if (total !== 0) {
                     const percent = (loaded * 100) / total;
-                    setProgress(percent);
+                    const percentFixed = +percent.toFixed(2);
+                    console.log(percentFixed)
+                    setProgress(percentFixed);
                 }
             }
-            );
-    }else {
-        throw ( new Error("URL for loading main scene wasn't provided") )
-    }*/
-
-    return await SceneLoader.AppendAsync(
-        './assets/',
-        "greymat_01.babylon",
-        scene, (progress) => {
-            const loaded = progress.loaded;
-            const total = progress.total;
-
-            if (total !== 0) {
-                const percent = (loaded * 100) / total;
-                setProgress(percent);
+        ).then((result) => {
+            const allMeshes = result.meshes.find(
+                (child) => child.name === '__root__'
+            ) as TransformNode;
+            if (allMeshes) {
+                allMeshes.name = 'InteriorGroup';
+                allMeshes.rotate(new Vector3(0, 1, 0), Math.PI);
             }
-        }
-    )
+        });
+    } else {
+        throw new Error("URL for loading main scene wasn't provided");
+    }
 }

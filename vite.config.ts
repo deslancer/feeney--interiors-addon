@@ -22,7 +22,17 @@ export default defineConfig({
       root: './',
     }),
   ],
-
+  build: {
+    outDir: '../dist',
+    assetsDir: '', // Leave `assetsDir` empty so that all static resources are placed in the root of the `dist` folder.
+    assetsInlineLimit: 0,
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js', // If you need a specific file name, comment out
+        chunkFileNames: 'assets/[name].js', // these lines and uncomment the bottom ones
+      },
+    },
+  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [

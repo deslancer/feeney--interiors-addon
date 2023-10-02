@@ -1,16 +1,29 @@
 import { StateCreator } from 'zustand';
 import { StoreSlices } from './store';
 
+interface UserData {
+  confirmPassword: 'string';
+  country: 'string';
+  email: 'string';
+  firstName: 'string';
+  id: 'string';
+  lastName: 'string';
+  phone: 'string';
+  stateProvince: 'string';
+  userType: 'string';
+}
+
 export interface UserSlice {
-  authenticated: boolean | null;
+  authenticated: boolean;
   setAuthentication: (authenticated: boolean) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
   error: { name: string; message: string; status: number } | null;
   setError: (error: { name: string; message: string; status: number }) => void;
-  user: any | null;
-  setUser: (user: any) => void;
-  users: object[];
+  user: UserData | null;
+  setUser: (user: UserData | null) => void;
+  accessToken: string;
+  setAccessToken: (accessToken: string) => void;
 }
 
 export const createUserSlice: StateCreator<
@@ -19,7 +32,7 @@ export const createUserSlice: StateCreator<
   [],
   UserSlice
 > = (set) => ({
-  authenticated: null,
+  authenticated: false,
 
   setAuthentication: (authenticated) =>
     set((state: any) => ({
@@ -50,6 +63,10 @@ export const createUserSlice: StateCreator<
       ...state,
       user,
     })),
-
-  users: [],
+  accessToken: '',
+  setAccessToken: (accessToken) =>
+    set((state: any) => ({
+      ...state,
+      accessToken,
+    })),
 });

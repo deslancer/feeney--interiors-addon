@@ -1,6 +1,5 @@
-import { StateCreator } from 'zustand';
-import { StoreSlices } from './store';
-import { Vector3 } from "babylonjs";
+import {StateCreator} from 'zustand';
+import {StoreSlices} from './store';
 
 export interface RailingParamsSlice {
     railingType: string[];
@@ -26,13 +25,17 @@ export interface RailingParamsSlice {
     verticalPicketColorName: string;
     setVerticalPicketColorName: (verticalPicketColorName: string) => void;
     lighting: {
-        topRailLights: boolean,
-        bottomRailLights: boolean,
-        postAccentLights: boolean
-    }
-    setLighting: (lighting: { topRailLights: boolean, bottomRailLights: boolean, postAccentLights: boolean }) => void;
-    placementPoints: Vector3[];
-    setPlacementPoints: (placementPoints: Vector3[])=> void;
+        topRailLights: boolean;
+        bottomRailLights: boolean;
+        postAccentLights: boolean;
+    };
+    setLighting: (lighting: {
+        topRailLights: boolean;
+        bottomRailLights: boolean;
+        postAccentLights: boolean;
+    }) => void;
+    rebuild: boolean;
+    setRebuild: (state: boolean) => void;
 }
 
 export const createRailingParamsSlice: StateCreator<
@@ -41,67 +44,67 @@ export const createRailingParamsSlice: StateCreator<
     [],
     RailingParamsSlice
 > = (set) => ({
-    railingType: ["DesignRail"],
+    railingType: ['DesignRail'],
     setRailingType: (railingType) =>
         set((state: any) => ({
             ...state,
             railingType,
         })),
-    postMounting: "Base Mount",
+    postMounting: 'Base Mount',
     setPostMounting: (postMounting) =>
         set((state: any) => ({
             ...state,
             postMounting,
         })),
-    cornerPosts: "Single",
+    cornerPosts: 'Single',
     setCornerPosts: (cornerPosts) =>
         set((state: any) => ({
             ...state,
             cornerPosts,
         })),
-    railingHeight: "36",
+    railingHeight: '36',
     setRailingHeight: (railingHeight) =>
         set((state: any) => ({
             ...state,
             railingHeight,
         })),
-    topRail: "200s",
+    topRail: '200s',
     setTopRail: (topRail) =>
         set((state: any) => ({
             ...state,
             topRail,
         })),
-    topRailForStairs: "200s",
+    topRailForStairs: '200s',
     setTopRailForStairs: (topRailForStairs) =>
         set((state: any) => ({
             ...state,
             topRailForStairs,
         })),
-    infill: "horizontalCableBaserail",
+    infill: 'glassClear', //'horizontalCableBaserail',
     setInfill: (infill) =>
         set((state: any) => ({
             ...state,
             infill,
         })),
-    stairHandrail: "",
+    stairHandrail: '',
     setStairHandrail: (stairHandrail) =>
         set((state: any) => ({
             ...state,
             stairHandrail,
         })),
-    railingHeightForStairs: "36",
+    railingHeightForStairs: '36',
     setRailingHeightForStairs: (railingHeightForStairs) =>
         set((state: any) => ({
             ...state,
             railingHeightForStairs,
         })),
-    verticalPicketShapeType: "Square",
+    verticalPicketShapeType: 'Square',
     setVerticalPicketShapeType: (verticalPicketShapeType) =>
         set((state: any) => ({
             ...state,
             verticalPicketShapeType,
         })),
-    verticalPicketColorName: "Black",
+    verticalPicketColorName: 'Black',
     setVerticalPicketColorName: (verticalPicketColorName) =>
         set((state: any) => ({
             ...state,
@@ -110,17 +113,17 @@ export const createRailingParamsSlice: StateCreator<
     lighting: {
         topRailLights: false,
         bottomRailLights: false,
-        postAccentLights: false
+        postAccentLights: false,
     },
     setLighting: (lighting) =>
         set((state: any) => ({
             ...state,
             lighting,
         })),
-    placementPoints: [],
-    setPlacementPoints: (placementPoints) =>
+    rebuild: false,
+    setRebuild: (rebuild) =>
         set((state: any) => ({
             ...state,
-            placementPoints,
+            rebuild,
         })),
 });

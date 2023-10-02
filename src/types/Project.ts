@@ -1,15 +1,16 @@
-import { ProjectAssets } from "./ProjectAssets";
+import { RailingParams } from './RailingParams';
 
-export type Project = {
-    assets: Array<ProjectAssets>
-    created_at: string
-    description: string
-    engine: string
-    graph: string
-    id: string
-    name: string
-    scene3d: string
-    uidl: Array<any>
-    updated_at: string
-    user_id: string
+export interface Project {
+  created: number;
+  projectImg: string;
+  projectName: string;
+  projectType: string;
+  railing: RailingParams;
+  railingColors: {};
+  scenery: 'string';
+  snapshots: string[];
+  updated: number;
+  sceneId: string;
+  userId: string;
+  id?: string;
 }
